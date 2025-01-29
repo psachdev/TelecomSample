@@ -2,6 +2,11 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+    <uses-permission android:name="android.permission.MANAGE_OWN_CALLS" />
+    <uses-permission android:name="android.permission.USE_FULL_SCREEN_INTENT" />
+
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -12,7 +17,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.TelecomSample"
         tools:targetApi="31">
-        <activity
+        <!--activity
             android:name=".MainActivity"
             android:exported="true"
             android:label="@string/app_name"
@@ -22,7 +27,29 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity-->
+
+        <service
+            android:name=".call.TelecomCallService"
+            android:exported="false" />
+
+        <activity
+            android:name=".call.TelecomCallActivity"
+            android:exported="true"
+            android:launchMode="singleInstance"
+            android:showOnLockScreen="true"
+            android:showWhenLocked="true"
+            android:turnScreenOn="true" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
+
+        <receiver
+            android:name=".call.TelecomCallBroadcast"
+            android:exported="false" />
     </application>
 
 </manifest>
